@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.nmhu.bssd5250.sb_bssd5250_hwk32">
+    package="edu.nmhu.bssd5250.sb_bssd5250_hwk51">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SB_BSSD5250_Hwk32">
         <activity
-            android:name="edu.nmhu.bssd5250.sb_bssd5250_hwk32.MainActivity"
+            android:name="MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

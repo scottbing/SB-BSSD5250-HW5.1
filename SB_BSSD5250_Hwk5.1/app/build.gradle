@@ -7,7 +7,7 @@ android {
     compileSdk 30
 
     defaultConfig {
-        applicationId "edu.nmhu.bssd5250.sb_bssd5250_hwk31"
+        applicationId "edu.nmhu.bssd5250.sb_bssd5250_hwk51"
         minSdk 21
         targetSdk 30
         versionCode 1
