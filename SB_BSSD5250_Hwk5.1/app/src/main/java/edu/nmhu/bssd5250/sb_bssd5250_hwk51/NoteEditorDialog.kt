@@ -3,6 +3,7 @@ package edu.nmhu.bssd5250.sb_bssd5250_hwk51
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.LinearLayoutCompat
@@ -48,6 +49,9 @@ class NoteEditorDialog : DialogFragment() {
             setMessage("Edit Content")
             setView(linearLayout)
             setPositiveButton("Save") { _,_ ->
+                Log.i("Save- Name: ", editName.text.toString())
+                Log.i("Save - Date: ", editDate.text.toString())
+                Log.i("Save - Desc: ", editDesc.text.toString())
                 NotesData.getNoteList()[indexVal].name = editName.text.toString()
                 NotesData.getNoteList()[indexVal].date = editDate.text.toString()
                 NotesData.getNoteList()[indexVal].desc = editDesc.text.toString()
