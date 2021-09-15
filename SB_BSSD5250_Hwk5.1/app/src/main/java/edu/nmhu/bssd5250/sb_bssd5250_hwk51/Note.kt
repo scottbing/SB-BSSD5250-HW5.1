@@ -3,7 +3,7 @@ package edu.nmhu.bssd5250.sb_bssd5250_hwk51
 import org.json.JSONObject
 import java.util.*
 
-class Note(var name:String, var desc:String, var date: String?, var flag:Boolean) {
+class Note(var name:String, var desc:String, var date: String?, var redFlag:Boolean) {
 
     init{
         if (date == null) {
@@ -18,12 +18,12 @@ class Note(var name:String, var desc:String, var date: String?, var flag:Boolean
             put("name", name)
             put("date", date)
             put("desc", desc)
-            put("flag", flag)
+            put("redFlag", redFlag)
         }
         return jsonObject
     }
 
     override fun toString(): String {
-        return "$name, $date, $desc, $flag"
+        return "$name, $date, $desc, $redFlag"
     }
 }

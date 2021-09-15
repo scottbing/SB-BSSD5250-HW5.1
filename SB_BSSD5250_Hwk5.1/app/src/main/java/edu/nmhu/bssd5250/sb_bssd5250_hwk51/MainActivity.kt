@@ -22,7 +22,7 @@ class MainActivity : NotesData.NotesDataUpdateListener, AppCompatActivity() {
 
     private var fid = 0
     private var which: Boolean = false
-    private var flag: Boolean = false       // indicates importance
+    private var redFlag: Boolean = false       // indicates importance
     private var fragmentLinearLayout: LinearLayoutCompat? = null
 
     override fun onPause() {
@@ -52,7 +52,7 @@ class MainActivity : NotesData.NotesDataUpdateListener, AppCompatActivity() {
         removeExistingNotes()
         for(i in 0 until NotesData.getNoteList().size){
             supportFragmentManager.commit {
-                add(fid, NoteFragment.newInstance(i, which, flag), null)
+                add(fid, NoteFragment.newInstance(i, which, redFlag), null)
             }
         }
     }
@@ -81,7 +81,7 @@ class MainActivity : NotesData.NotesDataUpdateListener, AppCompatActivity() {
                         which = false
                         NotesData.addNote(Note("", "", null, false))
                         val uniqueID = NotesData.getNoteList().size-1
-                        add(fid, NoteFragment.newInstance(uniqueID, which, flag), null)
+                        add(fid, NoteFragment.newInstance(uniqueID, which, redFlag), null)
                     }
                 }
             }
@@ -107,7 +107,7 @@ class MainActivity : NotesData.NotesDataUpdateListener, AppCompatActivity() {
                         which = true
                         NotesData.addNote(Note("", "", null, false))
                         val uniqueID = NotesData.getNoteList().size-1
-                        add(fid, NoteFragment.newInstance(uniqueID, which, flag), null)
+                        add(fid, NoteFragment.newInstance(uniqueID, which, redFlag), null)
                     }
                 }
             }
@@ -157,10 +157,10 @@ class MainActivity : NotesData.NotesDataUpdateListener, AppCompatActivity() {
         try {
             Log.i("MainActivity file", "in readData()")
             val fileInputStream: FileInputStream? = openFileInput("notes.json")
-            val inputStreamReader: InputStreamReader = InputStreamReader(fileInputStream)
-            val bufferedReader: BufferedReader = BufferedReader(inputStreamReader)
+            val inputStreamReader = InputStreamReader(fileInputStream)
+            val bufferedReader = BufferedReader(inputStreamReader)
             val stringBuilder: StringBuilder = StringBuilder()
-            var text: String? = null
+            var text: String?
             while (run {
                     text = bufferedReader.readLine()
                     text
@@ -181,7 +181,7 @@ class MainActivity : NotesData.NotesDataUpdateListener, AppCompatActivity() {
 
     private fun writeDataToFile() {
         Log.i("MainActivity file", "in writeDataToFile()")
-        val file:String = "notes.json"
+        val file = "notes.json"
         val data:String = NotesData.toJSON().toString()
         //val fileOutputStream: FileOutputStream
         try {

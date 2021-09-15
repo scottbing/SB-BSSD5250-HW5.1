@@ -1,7 +1,6 @@
 package edu.nmhu.bssd5250.sb_bssd5250_hwk51
 
 import android.annotation.SuppressLint
-import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -51,14 +50,13 @@ class NoteFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
-
-    val buttonWidth:Int = 200
+    
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SimpleDateFormat")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         nameView = TextView(context).apply {
             setHint(R.string.name_place_holder)
             text = NotesData.getNoteList()[indexVal].name
@@ -68,7 +66,7 @@ class NoteFragment : Fragment() {
             val current = LocalDateTime.now()
             //val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy. HH:mm:ss")
             val formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy")
-            var strDate: String =  current.format(formatter)
+            val strDate: String =  current.format(formatter)
             setText(strDate)
             text = NotesData.getNoteList()[indexVal].date
         }
@@ -94,7 +92,7 @@ class NoteFragment : Fragment() {
         //Deletebutton on the right side
         val deleteButton = Button(requireContext()).apply {
             id = View.generateViewId()
-            text = "Delete"
+            text = context.getString(R.string.delete_button_text)
             layoutParams = RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT
@@ -105,13 +103,12 @@ class NoteFragment : Fragment() {
             setOnClickListener {
                 AlertDialog.Builder(requireContext()).apply {
                     setTitle("Delete Note?")
-                    setPositiveButton("Yes", DialogInterface.OnClickListener{
-                            dialogInterface, i ->
-                            /*activity?.supportFragmentManager?.commit {
-                                remove(this@NoteFragment)
-                            }*/
-                            NotesData.deleteNote(indexVal)
-                    })
+                    setPositiveButton("Yes") { dialogInterface, i ->
+                        /*activity?.supportFragmentManager?.commit {
+                            remove(this@NoteFragment)
+                        }*/
+                        NotesData.deleteNote(indexVal)
+                    }
                     setNegativeButton("No", null) //do nothing if the say no
                     create()
                     show()
@@ -123,7 +120,7 @@ class NoteFragment : Fragment() {
 
         //Edit button on hte right side
         val editButton = Button(requireContext()).apply {
-            text = "edit"
+            "edit".also { text = it }
             layoutParams = RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT
@@ -138,7 +135,7 @@ class NoteFragment : Fragment() {
                     "date" to dateView.text,
                     "desc" to descView.text
                 )
-                NoteEditorDialog.newInstance(resultKey, currentData, indexVal).show(
+                NoteEditorDialog.newInstance(resultKey, currentData, indexVal, redFlag = importance).show(
                     parentFragmentManager, NoteEditorDialog.TAG)
             }
 
@@ -165,12 +162,12 @@ class NoteFragment : Fragment() {
         private var importance: Boolean = false
 
         @JvmStatic
-        fun newInstance(unique: Int, which: Boolean, flag: Boolean) =
+        fun newInstance(unique: Int, which: Boolean, redFlag: Boolean) =
             NoteFragment().apply {
                 indexVal = unique
                 resultKey = "NoteDataChange$unique"
                 setRedOn = which
-                importance = flag
+                importance = redFlag
             }
     }
 

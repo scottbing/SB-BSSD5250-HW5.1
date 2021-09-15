@@ -11,7 +11,7 @@ object NotesData {
 
     /* begin listener interface setup */
     interface NotesDataUpdateListener {
-        public fun  updateNotesDependents()
+        fun  updateNotesDependents()
     }
 
     private var mListener:NotesDataUpdateListener? = null
@@ -50,7 +50,7 @@ object NotesData {
                     obj.getString("name"),
                     obj.getString("date"),
                     obj.getString("desc"),
-                    obj.getBoolean("flag")
+                    obj.getBoolean("redFlag")
                 ))
             )
         }

@@ -1,11 +1,13 @@
 package edu.nmhu.bssd5250.sb_bssd5250_hwk51
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.os.Bundle
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.setFragmentResult
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -14,6 +16,7 @@ class NoteEditorDialog : DialogFragment() {
 
     private var targetResultKey:String = ""
 
+    @SuppressLint("SimpleDateFormat")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         // format today's date
@@ -48,7 +51,7 @@ class NoteEditorDialog : DialogFragment() {
                 NotesData.getNoteList()[indexVal].name = editName.text.toString()
                 NotesData.getNoteList()[indexVal].date = editDate.text.toString()
                 NotesData.getNoteList()[indexVal].desc = editDesc.text.toString()
-                //setFragmentResult(targetResultKey, Bundle.EMPTY)
+                setFragmentResult(targetResultKey, Bundle.EMPTY)
             }
             setNegativeButton("Cancel") { _,_ -> }
         }
@@ -62,12 +65,12 @@ class NoteEditorDialog : DialogFragment() {
         private var importance: Boolean = false
 
         @JvmStatic
-        fun newInstance(target:String, existing:Bundle, unique:Int, flag: Boolean) =
+        fun newInstance(target:String, existing:Bundle, unique:Int, redFlag: Boolean) =
             NoteEditorDialog().apply {
                 indexVal = unique
                 targetResultKey = target
                 existingData = existing
-                importance = flag
+                importance = redFlag
             }
     }
 }
