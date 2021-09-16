@@ -16,6 +16,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResultListener
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -38,6 +39,7 @@ class NoteFragment : Fragment() {
     private var resultKey: String = ""
     private var setRedOn:  Boolean = false
     private var indexVal:Int = -1
+    private var importance: Boolean = false
 
     private lateinit var nameView: TextView
     private lateinit var dateView: TextView
@@ -48,6 +50,12 @@ class NoteFragment : Fragment() {
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
+        }
+
+        setFragmentResultListener(resultKey){ _, _ ->
+            nameView.text = edu.nmhu.bssd5250.sb_bssd5250_hwk51.NotesData.getNoteList()[indexVal].name
+            dateView.text = edu.nmhu.bssd5250.sb_bssd5250_hwk51.NotesData.getNoteList()[indexVal].date
+            descView.text = edu.nmhu.bssd5250.sb_bssd5250_hwk51.NotesData.getNoteList()[indexVal].desc
         }
     }
     
@@ -135,7 +143,10 @@ class NoteFragment : Fragment() {
                     "date" to dateView.text,
                     "desc" to descView.text
                 )
-                NoteEditorDialog.newInstance(resultKey, currentData, indexVal, redFlag = importance).show(
+                Log.i("Save- Name: ", nameView.text.toString())
+                Log.i("Save - Date: ", dateView.text.toString())
+                Log.i("Save - Desc: ", descView.text.toString())
+                NoteEditorDialog.newInstance(resultKey, currentData, indexVal, importance).show(
                     parentFragmentManager, NoteEditorDialog.TAG)
             }
 
@@ -159,15 +170,14 @@ class NoteFragment : Fragment() {
 
     companion object {
 
-        private var importance: Boolean = false
-
         @JvmStatic
-        fun newInstance(unique: Int, which: Boolean, redFlag: Boolean) =
+        fun newInstance(unique: Int, which: Boolean, flag: Boolean) =
             NoteFragment().apply {
                 indexVal = unique
                 resultKey = "NoteDataChange$unique"
                 setRedOn = which
-                importance = redFlag
+                importance = flag
+                Log.i("companion which", which.toString())
             }
     }
 

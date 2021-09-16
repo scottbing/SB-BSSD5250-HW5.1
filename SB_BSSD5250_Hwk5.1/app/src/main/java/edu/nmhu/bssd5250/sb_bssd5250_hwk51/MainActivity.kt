@@ -196,6 +196,7 @@ class MainActivity : NotesData.NotesDataUpdateListener, AppCompatActivity() {
     }
 
     override fun updateNotesDependents() {
+        Log.i("Recreating Notes", "recreate")
         removeExistingNotes()
         createNoteFragments()
     }

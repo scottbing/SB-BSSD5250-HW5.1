@@ -1,4 +1,4 @@
-package edu.nmhu.bssd5250.sb_bssd5250_hwk32
+package edu.nmhu.bssd5250.sb_bssd5250_hwk51
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

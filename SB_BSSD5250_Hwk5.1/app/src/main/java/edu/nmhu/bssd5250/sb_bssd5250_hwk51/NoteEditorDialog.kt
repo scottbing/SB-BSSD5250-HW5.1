@@ -16,6 +16,8 @@ import java.util.*
 class NoteEditorDialog : DialogFragment() {
 
     private var targetResultKey:String = ""
+    private var indexVal:Int = -1
+    private var importance: Boolean = false
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -49,9 +51,9 @@ class NoteEditorDialog : DialogFragment() {
             setMessage("Edit Content")
             setView(linearLayout)
             setPositiveButton("Save") { _,_ ->
-                Log.i("Save- Name: ", editName.text.toString())
-                Log.i("Save - Date: ", editDate.text.toString())
-                Log.i("Save - Desc: ", editDesc.text.toString())
+                Log.i("ad Save- Name: ", editName.text.toString())
+                Log.i("ad Save - Date: ", editDate.text.toString())
+                Log.i("ad Save - Desc: ", editDesc.text.toString())
                 NotesData.getNoteList()[indexVal].name = editName.text.toString()
                 NotesData.getNoteList()[indexVal].date = editDate.text.toString()
                 NotesData.getNoteList()[indexVal].desc = editDesc.text.toString()
@@ -65,8 +67,7 @@ class NoteEditorDialog : DialogFragment() {
     companion object {
         const val TAG = "NoteEditorDialog"
         private var existingData:Bundle = Bundle.EMPTY
-        var indexVal:Int = -1
-        private var importance: Boolean = false
+
 
         @JvmStatic
         fun newInstance(target:String, existing:Bundle, unique:Int, redFlag: Boolean) =
