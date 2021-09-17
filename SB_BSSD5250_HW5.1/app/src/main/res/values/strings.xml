@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="name_place_holder">Name</string>
+    <string name="date_place_holder">Date</string>
+    <string name="desc_place_holder">Description</string>
+    <string name="delete_button_text">Delete</string>
+</resources>
